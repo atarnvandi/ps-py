@@ -19,4 +19,15 @@ df['developer'] = df['developer'].fillna(df['publisher'])
 # %%
 
 # Exploratory Data Analysis
+## 1. Most Selling Game by Title
 
+top5_game = df.groupby(['title'])['total_sales'].sum().to_frame('total_sales').reset_index().sort_values('total_sales', ascending=False).head(5)
+
+
+# %%
+
+# Visualization
+plt.figure()
+plt.axes()
+plt.bar(top5_game['title'],top5_game['total_sales'], width=0.4)
+plt.xticks(rotation=45)
