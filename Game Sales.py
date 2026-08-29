@@ -23,11 +23,15 @@ df['developer'] = df['developer'].fillna(df['publisher'])
 
 top5_game = df.groupby(['title'])['total_sales'].sum().to_frame('total_sales').reset_index().sort_values('total_sales', ascending=False).head(5)
 
+## 2. Most Selling Game by Genre
+top5_genre = df.groupby(['genre'])['total_sales'].sum().to_frame('total_sales').reset_index().sort_values('total_sales', ascending=False).head(5)
 
 # %%
 
 # Visualization
-plt.figure()
-plt.axes()
-plt.bar(top5_game['title'],top5_game['total_sales'], width=0.4)
-plt.xticks(rotation=45)
+fig1, ax = plt.subplots(1,2, figsize=(10,5))
+ax[0].barh(top5_game['title'], top5_game['total_sales'], height=0.4)
+ax[0].tick_params(axis='x', rotation=90)
+
+ax[1].barh(top5_genre['genre'], top5_genre['total_sales'], height=0.4)
+ax[1].tick_params(axis='x', rotation=90)
