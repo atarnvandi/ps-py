@@ -32,18 +32,18 @@ top5_console = df.groupby(['console'])['total_sales'].sum().to_frame('total_sale
 # %%
 
 # Visualization
-fig1, ax = plt.subplots(1,3, figsize=(10,5))
-ax[0].barh(top5_game['title'], top5_game['total_sales'], height=0.4)
-ax[0].invert_yaxis()
-ax[0].tick_params(axis='x', rotation=90)
+fig1, ax = plt.subplots(2,2, figsize=(10,5),sharex='row')
+ax[0,0].barh(top5_game['title'], top5_game['total_sales'], height=0.4)
+ax[0,0].invert_yaxis()
+ax[0,0].tick_params(axis='x', rotation=90)
 
-ax[1].barh(top5_genre['genre'], top5_genre['total_sales'], height=0.4)
-ax[1].invert_yaxis()
-ax[1].tick_params(axis='x', rotation=90)
+ax[0,1].barh(top5_genre['genre'], top5_genre['total_sales'], height=0.4)
+ax[0,1].invert_yaxis()
+ax[0,1].tick_params(axis='x', rotation=90)
 
-ax[2].barh(top5_console['console'], top5_console['total_sales'], height=0.4)
-ax[2].invert_yaxis()
-ax[2].tick_params(axis='x', rotation=90)
+ax[1,0].barh(top5_console['console'], top5_console['total_sales'], height=0.4)
+ax[1,0].invert_yaxis()
+ax[1,0].tick_params(axis='x', rotation=90)
 
 # %%
 
@@ -55,4 +55,4 @@ data = {
 }
 insight_df = pd.DataFrame(data)
 
-insight_df.to_csv('insight.csv',index=False)
+# insight_df.to_csv('insight.csv',index=False)
