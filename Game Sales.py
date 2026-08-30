@@ -31,19 +31,40 @@ top5_console = df.groupby(['console'])['total_sales'].sum().to_frame('total_sale
 
 # %%
 
-# Visualization
-fig1, ax = plt.subplots(2,2, figsize=(10,5),sharex='col')
+# Visualization - MULTI
+fig, ax = plt.subplots(2,2, figsize=(10,5))
 ax[0,0].barh(top5_game['title'], top5_game['total_sales'], height=0.4)
 ax[0,0].invert_yaxis()
-# ax[0,0].tick_params(axis='x', rotation=90)
+ax[0,0].tick_params(axis='x', rotation=90)
 
 ax[0,1].barh(top5_genre['genre'], top5_genre['total_sales'], height=0.4)
 ax[0,1].invert_yaxis()
-# ax[0,1].tick_params(axis='x', rotation=90)
+ax[0,1].tick_params(axis='x', rotation=90)
 
 ax[1,0].barh(top5_console['console'], top5_console['total_sales'], height=0.4)
 ax[1,0].invert_yaxis()
-# ax[1,0].tick_params(axis='x', rotation=90)
+ax[1,0].tick_params(axis='x', rotation=90)
+
+# %%
+
+# Visualization - Single
+## 1. Top 5 Game by Sales
+fig1, ax1 = plt.subplots(figsize=(10,5))
+ax1.barh(top5_game['title'], top5_game['total_sales'], height=0.4)
+ax1.invert_yaxis()
+ax1.tick_params(axis='x', rotation=90)
+
+## 2. Top 5 Genre by Sales
+fig2, ax2 = plt.subplots(figsize=(10,5))
+ax2.barh(top5_genre['genre'], top5_genre['total_sales'], height=0.4)
+ax2.invert_yaxis()
+ax2.tick_params(axis='x', rotation=90)
+
+## 3. Top 5 Console by Game Sales
+fig3, ax3 = plt.subplots(figsize=(10,5))
+ax3.barh(top5_console['console'], top5_console['total_sales'], height=0.4)
+ax3.invert_yaxis()
+ax3.tick_params(axis='x', rotation=90)
 
 # %%
 
