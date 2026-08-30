@@ -29,6 +29,38 @@ top5_genre = df.groupby(['genre'])['total_sales'].sum().to_frame('total_sales').
 ## 3. Most Selling Game by Console
 top5_console = df.groupby(['console'])['total_sales'].sum().to_frame('total_sales').reset_index().sort_values('total_sales', ascending=False).head(5)
 
+## 4. Most Selling Game by Region
+top5_game_region = df.groupby(['title'])[['na_sales','jp_sales','pal_sales','other_sales','total_sales']].sum()
+top5_na_reg = (top5_game_region
+                .sort_values('na_sales', ascending=False)
+                .head(5)
+                .drop(columns=['jp_sales','pal_sales','other_sales','total_sales'])
+                .rename(columns={'na_sales':'sales'})
+                )
+
+top5_jp_reg = (top5_game_region
+                .sort_values('jp_sales', ascending=False)
+                .head(5)
+                .drop(columns=['na_sales','pal_sales','other_sales','total_sales'])
+                .rename(columns={'jp_sales':'sales'})
+                )
+
+top5_pal_reg = (top5_game_region
+                .sort_values('pal_sales', ascending=False)
+                .head(5)
+                .drop(columns=['na_sales','jp_sales','other_sales','total_sales'])
+                .rename(columns={'pal_sales':'sales'})
+                )
+
+top5_other_reg = (top5_game_region
+                .sort_values('other_sales', ascending=False)
+                .head(5)
+                .drop(columns=['na_sales','jp_sales','pal_sales','total_sales'])
+                .rename(columns={'other_sales':'sales'})
+                )
+#%%
+top1_per_reg = pd.concat([top5_na_reg.head(1),top5_jp_reg.head(1),top5_pal_reg.head(1),top5_other_reg.head(1)])
+top1_per_reg['Region'] = ['North America','Japan','Europe and Africa','Rest of World']
 # %%
 
 # Visualization - MULTI
