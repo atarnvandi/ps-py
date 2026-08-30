@@ -30,29 +30,29 @@ top5_genre = df.groupby(['genre'])['total_sales'].sum().to_frame('total_sales').
 top5_console = df.groupby(['console'])['total_sales'].sum().to_frame('total_sales').reset_index().sort_values('total_sales', ascending=False).head(5)
 
 ## 4. Most Selling Game by Region
-top5_game_region = df.groupby(['title'])[['na_sales','jp_sales','pal_sales','other_sales','total_sales']].sum()
-top5_na_reg = (top5_game_region
+game_sales_by_region = df.groupby(['title'])[['na_sales','jp_sales','pal_sales','other_sales','total_sales']].sum().sort_values('total_sales',ascending=False)
+top5_na_reg = (game_sales_by_region
                 .sort_values('na_sales', ascending=False)
                 .head(5)
                 .drop(columns=['jp_sales','pal_sales','other_sales','total_sales'])
                 .rename(columns={'na_sales':'sales'})
                 )
 
-top5_jp_reg = (top5_game_region
+top5_jp_reg = (game_sales_by_region
                 .sort_values('jp_sales', ascending=False)
                 .head(5)
                 .drop(columns=['na_sales','pal_sales','other_sales','total_sales'])
                 .rename(columns={'jp_sales':'sales'})
                 )
 
-top5_pal_reg = (top5_game_region
+top5_pal_reg = (game_sales_by_region
                 .sort_values('pal_sales', ascending=False)
                 .head(5)
                 .drop(columns=['na_sales','jp_sales','other_sales','total_sales'])
                 .rename(columns={'pal_sales':'sales'})
                 )
 
-top5_other_reg = (top5_game_region
+top5_other_reg = (game_sales_by_region
                 .sort_values('other_sales', ascending=False)
                 .head(5)
                 .drop(columns=['na_sales','jp_sales','pal_sales','total_sales'])
@@ -101,10 +101,31 @@ ax3.tick_params(axis='x', rotation=90)
 # %%
 
 data = {
-        'insight':['Most selling game by title','Most selling game by genre','Most selling game by console'],
-        'finding':[top5_game.iloc[0,0],top5_genre.iloc[0,0],top5_console.iloc[0,0]],
-        'supporting_data':['top5_game','top5_genre','top5_console'],
-        'recomendation':['','','']
+        'insight':['Most selling game by title',
+                'Most selling game by genre',
+                'Most selling game by console',
+                'Most selling game in North America',
+                'Most selling game in Japan',
+                'Most selling game in Europe and Africa',
+                'Most selling game in Rest of The World'],
+
+        'finding':[top5_game.iloc[0,0],
+                top5_genre.iloc[0,0],
+                top5_console.iloc[0,0],
+                top5_na_reg.index[0],
+                top5_jp_reg.index[0],
+                top5_pal_reg.index[0],
+                top5_other_reg.index[0]],
+
+        'supporting_data':['top5_game',
+                        'top5_genre',
+                        'top5_console',
+                        'top5_na_reg',
+                        'top5_jp_reg',
+                        'top5_pal_reg',
+                        'top5_other_reg'],
+        
+        'recomendation':['','','','','','','']
 }
 insight_df = pd.DataFrame(data)
 
