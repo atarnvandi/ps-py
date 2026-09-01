@@ -59,22 +59,28 @@ sports_titles_by_sales = (
     df[df["genre"] == "Sports"]
     .groupby("title")["total_sales"]
     .sum()
-    .nlargest(5)
+    .nlargest(20)
     .reset_index()
     .rename(columns={"total_sales": "sport_sales"})
     .sort_values("sport_sales", ascending=False)
 )
+
+top_5_sports_titles_by_sales = sports_titles_by_sales.nlargest(5, columns="sport_sales")
 
 ## Action-Adventure Game Title Sales - Double Check on GTA V
 action_titles_by_sales = (
     df[(df["genre"] == "Action") | (df["genre"] == "Action-Adventure")]
     .groupby("title")["total_sales"]
     .sum()
-    .nlargest(5)
+    .nlargest(20)
     .reset_index()
     .rename(columns={"total_sales": "action_sales"})
     .sort_values("action_sales", ascending=False)
 )
+top_5_action_titles_by_sales = action_titles_by_sales.nlargest(
+    5, columns="action_sales"
+)
+
 ## 1st Rank Sports Game Title Vs 1st Rank Action/ Action-Adventure Genre
 top_1_sports_game = sports_titles_by_sales.iloc[0, 0]
 top_1_action_game = action_titles_by_sales.iloc[0, 0]
@@ -113,5 +119,27 @@ ax[1].barh(
     label=top_1_action_game_console_by_sales["action_sales"],
 )
 
-ax[0].set_title('First Subplot Title')
-ax[1].set_title('Second Subplot Title')
+ax[0].set_title("FIFA 15 Sales on Consoles")
+ax[1].set_title("GTA V Sales on Consoles")
+
+ax[0].set_xlabel("Sales in Million")
+ax[1].set_xlabel("Sales in Million")
+
+plt.show()
+
+## Sports Game Vs Actions Game Sales Distribution
+fig1, ax1 = plt.subplots(1, 2, figsize=(10, 8))
+
+ax1[0].bar(
+    height=sports_titles_by_sales["sport_sales"],
+    x=sports_titles_by_sales["title"],
+    label=sports_titles_by_sales["sport_sales"],
+)
+ax1[1].bar(
+    height=action_titles_by_sales["action_sales"],
+    x=action_titles_by_sales["title"],
+    label=action_titles_by_sales["action_sales"],
+)
+
+ax1[0].tick_params(axis="x", rotation=90)
+ax1[1].tick_params(axis="x", rotation=90)
