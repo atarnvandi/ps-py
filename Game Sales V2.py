@@ -143,3 +143,5 @@ ax1[1].bar(
 
 ax1[0].tick_params(axis="x", rotation=90)
 ax1[1].tick_params(axis="x", rotation=90)
+
+# Sports Top 5 Distribution is more subtle than the Top 5 of the Actions Game. GTA V is an anomaly in Action Game Genre.
