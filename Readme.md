@@ -9,7 +9,7 @@ The analysis focuses on:
 - Title–console and genre–console sales combinations
 - A deep dive into why GTA V, an Action title, outsells titles in the higher-grossing Sports genre
 
-For the full analysis code, see [`game_sales.py`](./game_sales.py).
+For the full analysis code, see [`Game Sales V3.py`](./Game%20Sales%20V3.py).
 
 ## Data Structure Overview
 
